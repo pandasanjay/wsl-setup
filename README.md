@@ -76,3 +76,58 @@
     *Note at the time of install 12.2 version was not avilable, [Pytorch version for cuda 12.2](https://stackoverflow.com/questions/76678846/pytorch-version-for-cuda-12-2) based on this I installed.
 
     TODO- Setup cuda and install pyturch
+
+
+## WSL Disk Cleanup & Reclaiming Space
+
+### 1. Run `wsl_disk_cleanup.sh`
+
+- **Purpose:** Frees up disk space by cleaning up unnecessary files and package caches inside your WSL instance.
+- **How to Use:**
+  1. Place `wsl_disk_cleanup.sh` in your Linux home directory (or any preferred location).
+  2. Make it executable:
+     ```sh
+     chmod +x wsl_disk_cleanup.sh
+     ```
+  3. Run the script:
+     ```sh
+     ./wsl_disk_cleanup.sh
+     ```
+- **What to Expect:**  
+  The script will:
+  - Clean up package cache with `sudo apt-get clean`
+  - Remove unused packages with `sudo apt-get autoremove`
+  - Clean temporary files and logs
+  - You will see output messages summarizing freed space and actions taken.
+
+### 2. Reclaim Space Using Optimize-VHD
+
+- **Purpose:** Shrinks the virtual disk file used by WSL2 to reclaim freed space back on your Windows host.
+- **How to Use:**
+  1. Open **PowerShell as Administrator**.
+  2. Run:
+     ```powershell
+     Optimize-VHD -Path "C:\Users\<username>\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc\LocalState\ext4.vhdx" -Mode Full
+     ```
+- **What to Expect:**  
+  This operation may take several minutes. When finished, the ext4.vhdx file will be smaller if there was unused space to reclaim.
+
+### 3. Finding Your VHDX Path
+
+- Each WSL distribution has its own vhdx file.
+- The path generally looks like:
+  ```
+  C:\Users\<YourUsername>\AppData\Local\Packages\<DistroPackageName>\LocalState\ext4.vhdx
+  ```
+- **How to Find It:**
+  1. List installed WSL distributions:
+     ```powershell
+     wsl --list --verbose
+     ```
+  2. Find the folder in:
+     ```
+     %USERPROFILE%\AppData\Local\Packages
+     ```
+     Matching your distribution (e.g., contains `Ubuntu22.04LTS`).
+  3. The vhdx file is inside that folder’s `LocalState` directory.
+
