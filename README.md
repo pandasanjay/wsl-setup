@@ -78,6 +78,28 @@
     TODO- Setup cuda and install pyturch
 
 
+## System Monitoring and Troubleshooting
+
+### Running monitor_performance.ps1
+
+If your system feels sluggish or hangs often for no obvious reason, you can use the `monitor_performance.ps1` script to help diagnose performance issues.
+
+**When to Run:**
+- When your system is slow, unresponsive, or hangs frequently without any clear reason.
+
+**How to Run:**
+1. Open **PowerShell** in **Administrator mode**.
+2. Navigate to the directory containing `monitor_performance.ps1`.
+3. Execute the script with:
+   ```powershell
+   .\monitor_performance.ps1
+   ```
+4. Follow any on-screen instructions provided by the script.
+
+This script will collect and display system performance information to help you identify potential issues.
+
+---
+
 ## WSL Disk Cleanup & Reclaiming Space
 
 ### 1. Run `wsl_disk_cleanup.sh`
@@ -130,4 +152,3 @@
      ```
      Matching your distribution (e.g., contains `Ubuntu22.04LTS`).
   3. The vhdx file is inside that folder’s `LocalState` directory.
-
